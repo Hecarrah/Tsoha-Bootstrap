@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Käyttäjän nönnönnöö muistiinpanot</h1>
+
+  <p>
+    <a href="#" class="btn btn-success">Lisää muistiinpano</a>
+  </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Nimi</th>
+        <th>Lisäyspäivä</th>
+        <th>Lisääjä</th>
+        <th>Status</th>
+        <th>Tärkeys</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Listataan pelit tähän -->
+      <tr>
+        <td><a href="#">Osta juotavaa</a></td>
+        <td>1.2.2016</td>
+        <td>Nönnönnöö</td>
+        <td><label class="label label-danger">kesken</label></td>
+        <td>Kohtalainen</td>
+        <th><a class="btn btn-default btn-sm" href="#">Muokkaa</a></th>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}
