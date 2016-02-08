@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muistiinpanot</h1>
+
+  <p>
+    <a href="{{base_path}}/memo/new" class="btn btn-success">Lisää Muistiinpano</a>
+  </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Nimi</th>
+        <th>Kuvaus</th>
+        <th>Lisäyspäivä</th>
+        <th>Tärkeys</th>
+        <th>Valmis</th>
+        <th></th>  
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for Muistiinpano in memos %}
+        <tr>
+          <td><a href="{{base_path}}/memo/{{Muistiinpano.id}}">{{Muistiinpano.name}}</td>
+          <td>{{Muistiinpano.description}}</td>
+          <td>{{Muistiinpano.added}}</td>
+          <td>{{Muistiinpano.priority}}</td>
+          <td>
+              {% if Muistiinpano.done %}
+                <label class="label label-success">Valmis
+              {% else %}
+                <label class="label label-danger">Kesken
+              {% endif %}
+          </td>
+          <td><a class="btn btn-default btn-sm" href="{{base_path}}/memo/{{Muistiinpano.id}}/edit">Muokkaa</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

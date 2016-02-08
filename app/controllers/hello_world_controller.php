@@ -1,5 +1,4 @@
 <?php
-
   class HelloWorldController extends BaseController{
 
     public static function index(){
@@ -7,10 +6,14 @@
    	  View::make('home.html');
     }
 
-    public static function sandbox(){
-      // Testaa koodiasi täällä
-      View::make('helloworld.html');
-    }
+      public static function sandbox(){
+        //View::make('helloworld.html');
+    $kalja = Muistiinpano::find(1);
+    $memos = Muistiinpano::all();
+    // Kint-luokan dump-metodi tulostaa muuttujan arvon
+    Kint::dump($memos);
+    Kint::dump($kalja);
+  }
     public static function memo_list(){
       // Testaa koodiasi täällä
       View::make('suunnitelmat/memoList.html');

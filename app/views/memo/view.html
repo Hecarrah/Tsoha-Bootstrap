@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="alert alert-success">
+  {{message}}
+</div>
+  <h1>{{memo.name}}</h1>
+  
+  <p>
+    <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
+  </p>
+  <ul>
+      
+    <li><strong>Lisäyspäivä</strong>{{memo.added}}</li>
+    <li><strong>Lisääjä</strong> {{memo.kayt_id}}</li>
+    <li><strong>Status:</strong>               {% if Muistiinpano.done %}
+                <label class="label label-success">Valmis
+              {% else %}
+                <label class="label label-danger">Kesken
+              {% endif %}</li>
+    <li><strong>Tärkeys</strong> {{memo.priority}}</li>
+    </ul>
+  <p>
+    {{memo.description}}
+  </p>
+  
+{% endblock %}
