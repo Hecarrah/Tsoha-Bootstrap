@@ -22,6 +22,5 @@ CREATE TABLE Muistiinpano(
     name varchar(50) NOT NULL,
     description varchar(500),
     added DATE,
-    priority varchar(50) default 'Normaali',
-    done boolean DEFAULT FALSE
+    priority varchar(50) default 'Normaali'
 );

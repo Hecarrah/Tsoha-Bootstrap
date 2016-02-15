@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% import "macros/forms.html" as forms %}
 {% block content %}
-  <h1>Lisää muistiinpano</h1>
+  <h1>Muokkaa muistiinpano</h1>
   {% if errors %}
     <div class="alert alert-danger">
       <ul>
@@ -10,7 +11,7 @@
       </ul>
     </div>
   {% endif %}
-  <form method="post" action="{{base_path}}/memo">
+  <form method="post" action="{{base_path}}/memo/{{attributes.id}}/edit">
     <div class="form-group">
       <label class="control-label">Nimi</label>
       <input type="text" name="name" class="form-control" value="{{attributes.name}}">
@@ -26,7 +27,9 @@
       <input type="text" name="priority" class="form-control" value="{{attributes.priority}}">
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-primary">Lisää</button>
+      <form method="post" action="{{base_path}}/memo/{{Muistiinpano.id}}/edit" style="display: inline-block;">
+  <button type="submit" class="btn btn-danger">Muokkaa</button>
+  {{forms.destroy_button("#{base_path}/memo/#{Muistiinpano.id}/destroy")}}
     </div>
   </form>
 {% endblock %}

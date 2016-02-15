@@ -7,12 +7,13 @@
     }
 
       public static function sandbox(){
-        //View::make('helloworld.html');
-    $kalja = Muistiinpano::find(1);
-    $memos = Muistiinpano::all();
-    // Kint-luokan dump-metodi tulostaa muuttujan arvon
-    Kint::dump($memos);
-    Kint::dump($kalja);
+          $test = new Muistiinpano(array(
+              'name' => 'k',
+              'description' => 'lel',
+              'priority' => 'tärkeä'
+          ));
+          $errors = $test->errors();
+          Kint::dump($errors);
   }
     public static function memo_list(){
       // Testaa koodiasi täällä

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros/forms.html" as forms %}
 {% block content %}
 <div class="alert alert-success">
   {{message}}
@@ -6,17 +7,12 @@
   <h1>{{memo.name}}</h1>
   
   <p>
-    <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
+    {{forms.destroy_button("#{base_path}/memo/#{Muistiinpano.id}/destroy")}}
   </p>
   <ul>
       
     <li><strong>Lisäyspäivä</strong>{{memo.added}}</li>
     <li><strong>Lisääjä</strong> {{memo.kayt_id}}</li>
-    <li><strong>Status:</strong>               {% if Muistiinpano.done %}
-                <label class="label label-success">Valmis
-              {% else %}
-                <label class="label label-danger">Kesken
-              {% endif %}</li>
     <li><strong>Tärkeys</strong> {{memo.priority}}</li>
     </ul>
   <p>

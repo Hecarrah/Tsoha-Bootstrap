@@ -18,12 +18,28 @@
     public function errors(){
       // Lisätään $errors muuttujaan kaikki virheilmoitukset taulukkona
       $errors = array();
-
       foreach($this->validators as $validator){
-        // Kutsu validointimetodia tässä ja lisää sen palauttamat virheet errors-taulukkoon
+        // Kutsu validointimetodia tässä ja lisää sen palauttamat virheet errors-taulukkoon 
+        $errors = array_merge($errors, $this->{$validator}());
+        //Kint::dump($errors);
       }
-
       return $errors;
     }
+    
+    public function validate_String_not_null($string){
+        $errors = array();
+        if($string == '' || $string == null){
+            $errors[] = 'Minkään arvon ei tule olla null';
+        }
+        return $errors;
+    }
+    
+    public function validate_String_lenght($string){
+        $errors = array();
+        if(strlen($string) < 3){
+            $errors[] = 'Nimen ja kuvauksen ei tule olla kolmea merkkiä lyhyempiä';
+        }
+        return $errors;
+    }
 
-  }
+}
