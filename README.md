@@ -13,3 +13,7 @@ http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Muistilista
 * [Linkki edit sivulle](http://porttpet.users.cs.helsinki.fi/TietokantaHarjoitus/memoedit)
 * [Linkki listaus sivulle](http://porttpet.users.cs.helsinki.fi/TietokantaHarjoitus/memo)
 * [Linkki muistiinpanoon](http://porttpet.users.cs.helsinki.fi/TietokantaHarjoitus/memo/1)
+
+## Käyttäjätunnuksia
+Tunnus: Guru 		Salasana:leet
+Tunnus: Nönnönnöö 	Salasana:asd
