@@ -1,6 +1,6 @@
 <?php
  class Muistiinpano extends BaseModel{
-     public $id, $kayt_id, $name, $description, $added, $priority, $done;
+     public $id, $kayt_id, $name, $description, $added, $priority;
      
      public function __construct($attributes) {
          parent::__construct($attributes);
@@ -19,8 +19,7 @@
                  'name' => $row['name'],
                  'description' => $row['description'],
                  'added' => $row['added'],
-                 'priority' => $row['priority'],
-                 'done' => $row['done'],
+                 'priority' => $row['priority']
              ));
          }
          return $memos;
@@ -38,8 +37,7 @@
                  'name' => $row['name'],
                  'description' => $row['description'],
                  'added' => $row['added'],
-                 'priority' => $row['priority'],
-                 'done' => $row['done'],
+                 'priority' => $row['priority']
              ));
             return $memo;
          }
@@ -90,17 +88,20 @@
 //        }
         $errors = array_merge($errors, BaseModel::validate_String_not_null($this->name));
         $errors = array_merge($errors, BaseModel::validate_String_lenght($this->name));
+        $errors = array_merge($errors, BaseModel::validate_not_whitespace($this->name));
         return $errors;
     }
     public function validate_description(){
         $errors = array();
         $errors = array_merge($errors, BaseModel::validate_String_not_null($this->description));
         $errors = array_merge($errors, BaseModel::validate_String_lenght($this->description));
+        $errors = array_merge($errors, BaseModel::validate_not_whitespace($this->name));
         return $errors;
     }
     public function validate_priority(){
         $errors = array();
         $errors = array_merge($errors, BaseModel::validate_String_not_null($this->name));
+        $errors = array_merge($errors, BaseModel::validate_not_whitespace($this->name));
         return $errors;
     }
  }

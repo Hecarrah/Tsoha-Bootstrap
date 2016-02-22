@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import "macros/forms.html" as forms %}
+{% block content %}
+<div class="alert alert-success">
+  {{message}}
+</div>
+  <h1>{{user.name}}</h1>
+  
+  <p>
+    {{forms.destroy_button("#{base_path}/user/#{User.id}/destroy")}}
+  </p>
+  <ul>
+      
+    <li><strong>Käyttäjä ID: </strong>{{user.id}}</li>
+    <li><strong>Käyttäjänimi: </strong>{{user.name}}</li>
+    <li><strong>Salasana: </strong> {{user.password}}</li>
+    <li><strong>Admin: </strong> {{user.is_admin}}</li>
+    </ul>
+  
+      Ryhmät
+      <ul>
+    {% for Ryhma in ryhmat %}
+    
+    <li>{{Ryhma.name}}</li>
+    
+    {% endfor %}
+      </ul>
+  
+{% endblock %}

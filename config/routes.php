@@ -24,11 +24,21 @@ require 'app/controllers/userController.php';
   $routes->post('/memo/:id/destroy', function($id){
     memoController::destroy($id);
   });
+  
   $routes->get('/login', function(){
     userController::login();
   });
   $routes->post('/login', function(){
     userController::handle_login();
+  });
+  $routes->post('/logout', function(){
+    userController::logout();
+  });
+    $routes->get('/users', function() {
+    userController::index();
+  });
+    $routes->get('/user/:id', function($id) {
+    userController::show($id);
   });
 
  

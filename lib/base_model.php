@@ -41,5 +41,12 @@
         }
         return $errors;
     }
+    public function validate_not_whitespace($string){
+        $errors = array();
+        if(ctype_space($string)){
+            $errors[] = 'Nimen ja kuvauksen ei tule olla pelkkää whitespacea';
+        }
+        return $errors;
+    }
 
 }

@@ -1,7 +1,8 @@
 CREATE TABLE Kayttaja(
     id SERIAL PRIMARY KEY,
     name varchar(50) NOT NULL,
-    password varchar(50) NOT NULL
+    password varchar(50) NOT NULL,
+    is_admin boolean DEFAULT FALSE
 );
 
 CREATE TABLE Ryhma(
