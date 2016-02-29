@@ -23,7 +23,11 @@
         <tr>
           <td><a href="{{base_path}}/user/{{User.id}}">{{User.name}}</td>
           <td>{{User.password}}</td>
+          {% if User.isAdmin(User.id) %}
           <td>{{User.is_admin}}</td>
+          {% else %}
+          <td>0</td>
+          {% endif %}
           <td><a class="btn btn-default btn-sm" href="{{base_path}}/user/{{User.id}}/edit">Muokkaa</a></td>
           <td>{{forms.destroy_button("#{base_path}/user/#{User.id}/destroy")}}</td>
         </tr>

@@ -7,12 +7,13 @@
   <h1>{{memo.name}}</h1>
   
   <p>
-    {{forms.destroy_button("#{base_path}/memo/#{memo.id}/destroy")}}
+    {{forms.destroy_button("#{base_path}/groupmemo/#{Muistiinpano.id}/destroy")}}
   </p>
   <ul>
       
-    <li><strong>Lisäyspäivä</strong> {{memo.added}}</li>
+    <li><strong>Lisäyspäivä</strong>{{memo.added}}</li>
     <li><strong>Lisääjä</strong> {{memo.username}}</li>
+    <li><strong>Ryhmä</strong> {{memo.groupname}}</li>
     <li><strong>Tärkeys</strong> {{memo.priority}}</li>
     </ul>
   <p>

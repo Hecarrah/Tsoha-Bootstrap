@@ -37,14 +37,21 @@
     public function validate_String_lenght($string){
         $errors = array();
         if(strlen($string) < 3){
-            $errors[] = 'Nimen ja kuvauksen ei tule olla kolmea merkkiä lyhyempiä';
+            $errors[] = 'Arvon ei tule olla kolmea(3) merkkiä lyhyempi';
         }
         return $errors;
     }
     public function validate_not_whitespace($string){
         $errors = array();
         if(ctype_space($string)){
-            $errors[] = 'Nimen ja kuvauksen ei tule olla pelkkää whitespacea';
+            $errors[] = 'Arvon ei tule olla pelkkää whitespacea';
+        }
+        return $errors;
+    }
+    public function validate_boolean($string){
+        $errors = array();
+        if(is_bool($string)){
+            $errors[] = 'Arvon tulee olla boolean';
         }
         return $errors;
     }

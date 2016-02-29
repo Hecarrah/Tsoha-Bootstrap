@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Lisää muistiinpano</h1>
+  <h1>Lisää Ryhmä</h1>
   {% if errors %}
     <div class="alert alert-danger">
       <ul>
@@ -10,19 +10,10 @@
       </ul>
     </div>
   {% endif %}
-  <form method="post" action="{{base_path}}/memo">
+  <form method="post" action="{{base_path}}/group">
     <div class="form-group">
       <label class="control-label">Nimi</label>
       <input type="text" name="name" class="form-control" value="{{attributes.name}}">
-    </div>
-    <div class="form-group">
-      <label class="control-label">Kuvaus</label>
-      <input type="text" name="description" class="form-control" value="{{attributes.description}}">
-    </div>
-
-    <div class="form-group">
-      <label class="control-label">Tärkeys</label>
-      <input type="text" name="priority" class="form-control" value="{{attributes.priority}}">
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Lisää</button>

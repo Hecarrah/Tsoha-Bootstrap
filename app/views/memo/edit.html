@@ -27,9 +27,9 @@
       <input type="text" name="priority" class="form-control" value="{{attributes.priority}}">
     </div>
     <div class="form-group">
-      <form method="post" action="{{base_path}}/memo/{{Muistiinpano.id}}/edit" style="display: inline-block;">
+      <form method="post" action="{{base_path}}/memo/{{attributes.id}}/edit" style="display: inline-block;">
   <button type="submit" class="btn btn-danger">Muokkaa</button>
-  {{forms.destroy_button("#{base_path}/memo/#{Muistiinpano.id}/destroy")}}
     </div>
   </form>
+        {{forms.destroy_button("#{base_path}/memo/#{attributes.id}/destroy")}}
 {% endblock %}

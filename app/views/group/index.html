@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% import "macros/forms.html" as forms %}
+{% block content %}
+    <h1>Ryhmät</h1>
+
+  <p>
+    <a href="{{base_path}}/group/new" class="btn btn-success">Lisää Ryhma</a>
+  </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nimi</th>
+        <th></th>
+        <th></th>    
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for Group in groups %}
+        <tr>
+          <td><a href="{{base_path}}/group/{{Group.id}}">{{Group.id}}</td>
+          <td><a href="{{base_path}}/group/{{Group.id}}">{{Group.name}}</td>
+          <td><a class="btn btn-default btn-sm" href="{{base_path}}/group/{{Group.id}}/edit">Muokkaa</a></td>
+          
+          <td>{{forms.destroy_button("#{base_path}/group/#{Group.id}/destroy")}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

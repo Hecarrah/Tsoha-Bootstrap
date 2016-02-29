@@ -1,6 +1,6 @@
 <?php
  class Muistiinpano extends BaseModel{
-     public $id, $kayt_id, $name, $description, $added, $priority;
+     public $id, $kayt_id, $name, $description, $added, $priority, $groupname, $username;
      
      public function __construct($attributes) {
          parent::__construct($attributes);
@@ -24,9 +24,29 @@
          }
          return $memos;
      }
+     public static function ryh_all($attr){
+         $query = DB::connection()->prepare('SELECT RyhmaMuistiinpano.id, Ryhmamuistiinpano.kayt_id, Ryhmamuistiinpano.name,'
+                 . 'Ryhmamuistiinpano.description, Ryhmamuistiinpano.added, Ryhmamuistiinpano.priority, ryhma.name as groupname FROM ryhma, RyhmaMuistiinpano, Kayttaja, Kayt_ryhma WHERE kayttaja.id = :attr AND ryhma.id = kayt_ryhma.ryhma_id AND kayttaja.id = kayt_ryhma.kayt_id AND RyhmaMuistiinpano.ryh_id = kayt_ryhma.ryhma_id;');
+         $query->execute(array('attr' => $_SESSION['user']));
+         $rows = $query->fetchAll();
+         $memos = array();
+         
+         foreach ($rows as $row) {
+             $memos[] = new Muistiinpano(array(
+                 'id' => $row['id'],
+                 'kayt_id' => $row['kayt_id'],
+                 'name' => $row['name'],
+                 'description' => $row['description'],
+                 'added' => $row['added'],
+                 'priority' => $row['priority'],
+                 'groupname' => $row['groupname']
+             ));
+         }
+         return $memos;
+     }
      
      public static function find($id){
-         $query = DB::connection()->prepare('SELECT * FROM Muistiinpano WHERE id = :id LIMIT 1');
+         $query = DB::connection()->prepare('SELECT muistiinpano.id, Muistiinpano.kayt_id, Muistiinpano.name, description, added, priority, kayttaja.name as username FROM Muistiinpano, kayttaja, ryhma WHERE muistiinpano.id = :id AND muistiinpano.kayt_id = kayttaja.id LIMIT 1');
          $query ->execute(array('id' => $id));
          $row = $query->fetch();
          
@@ -37,7 +57,28 @@
                  'name' => $row['name'],
                  'description' => $row['description'],
                  'added' => $row['added'],
-                 'priority' => $row['priority']
+                 'priority' => $row['priority'],
+                 'username' => $row['username'],
+             ));
+            return $memo;
+         }
+         return null;
+     }
+     public static function findwgroup($id){
+         $query = DB::connection()->prepare('SELECT Ryhmamuistiinpano.id, RyhmaMuistiinpano.kayt_id, RyhmaMuistiinpano.name, description, added, priority, kayttaja.name as username, ryhma.name as groupname FROM RyhmaMuistiinpano, kayttaja, ryhma WHERE Ryhmamuistiinpano.id = :id LIMIT 1');
+         $query ->execute(array('id' => $id));
+         $row = $query->fetch();
+         
+         if($row){
+            $memo = new Muistiinpano(array(
+                 'id' => $row['id'],
+                 'kayt_id' => $row['kayt_id'],
+                 'name' => $row['name'],
+                 'description' => $row['description'],
+                 'added' => $row['added'],
+                 'priority' => $row['priority'],
+                 'username' => $row['username'],
+                 'groupname' => $row['groupname'],
              ));
             return $memo;
          }
@@ -80,12 +121,6 @@
     
     public function validate_name(){
         $errors = array();
-//        if($this->name == '' || $this->name == null){
-//            $errors[] = 'Nimi ei saa olla tyhjä';
-//        }
-//        if(strlen($this->name) < 3){
-//            $errors[] = 'Nimen tulee olla vähintään kolme merkkiä';
-//        }
         $errors = array_merge($errors, BaseModel::validate_String_not_null($this->name));
         $errors = array_merge($errors, BaseModel::validate_String_lenght($this->name));
         $errors = array_merge($errors, BaseModel::validate_not_whitespace($this->name));
@@ -100,8 +135,8 @@
     }
     public function validate_priority(){
         $errors = array();
-        $errors = array_merge($errors, BaseModel::validate_String_not_null($this->name));
-        $errors = array_merge($errors, BaseModel::validate_not_whitespace($this->name));
+        $errors = array_merge($errors, BaseModel::validate_String_not_null($this->priority));
+        $errors = array_merge($errors, BaseModel::validate_not_whitespace($this->priority));
         return $errors;
     }
  }

@@ -6,7 +6,21 @@ class User extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_name','validate_password', 'validate_is_admin');
     }
+    public static function jasenet($id) {
+        $query = DB::connection()->prepare('SELECT kayttaja.name FROM Ryhma, Kayttaja, Kayt_ryhma WHERE ryhma.id = :id AND ryhma.id = kayt_ryhma.ryhma_id AND kayttaja.id = kayt_ryhma.kayt_id;
+');
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+        $users = array();
+        foreach ($rows as $row) {
+          $users[] = new Ryhma(array(
+            'name' => $row['name']
+            ));
+        }
+        return $users;
+      }
 
     public function authenticate($name, $password) {
         $query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE name = :name AND password = :password LIMIT 1');
@@ -58,7 +72,57 @@ class User extends BaseModel {
         if ($row) {
             return new User(array('is_admin' => $row['is_admin']));
         } else {
-            return NULL;
+            return null;
         }
       }
+          public function save(){
+        $query = DB::connection()->prepare('INSERT INTO Kayttaja (name, password, is_admin) VALUES (:name, :password, :is_admin) RETURNING id');
+        $query->execute(array('name' => $this->name, 'password' => $this->password, 'is_admin' => $this->is_admin));
+        $row = $query->fetch();
+        $this->id = $row['id'];
+    }
+    public function update(){
+        $done;
+        if(isset($_POST['done'])){
+            $done = $_POST['done'];
+        }else{
+            $done=0;
+        }
+        $query = DB::connection()->prepare('UPDATE Kayttaja SET '
+                                        . 'Name = \''.$this->name.'\', '
+                                        . 'Password =\'' .$this->password.'\', '
+                                        . 'is_admin =\''. $this->is_admin. '\' WHERE id =' .$this->id);
+        $query->execute();
+        //$row = $query->fetch();
+//          Kint::trace();
+        //Kint::dump($row);
+        //$this->id = $row['id'];
+    }
+    public function destroy(){
+        $query = DB::connection()->prepare('DELETE FROM Kayttaja WHERE id =' . $this->id . ' RETURNING id');
+        $query->execute();
+        //$row = $query->fetch();
+//          Kint::trace();
+//  Kint::dump($row);
+        //$this->id = $row['id'];
+    }
+        public function validate_name(){
+        $errors = array();
+        $errors = array_merge($errors, BaseModel::validate_String_not_null($this->name));
+        $errors = array_merge($errors, BaseModel::validate_String_lenght($this->name));
+        $errors = array_merge($errors, BaseModel::validate_not_whitespace($this->name));
+        return $errors;
+    }
+    public function validate_password(){
+        $errors = array();
+        $errors = array_merge($errors, BaseModel::validate_String_not_null($this->password));
+        $errors = array_merge($errors, BaseModel::validate_String_lenght($this->password));
+        $errors = array_merge($errors, BaseModel::validate_not_whitespace($this->password));
+        return $errors;
+    }
+    public function validate_is_admin(){
+        $errors = array();
+        $errors = array_merge($errors, BaseModel::validate_boolean($this->is_admin));
+        return $errors;
+    }
 }

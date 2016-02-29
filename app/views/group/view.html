@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% import "macros/forms.html" as forms %}
+{% block content %}
+<div class="alert alert-success">
+  {{message}}
+</div>
+  <h1>{{memo.name}}</h1>
+  
+  <p>
+    {{forms.destroy_button("#{base_path}/group/#{Group.id}/destroy")}}
+  </p>
+  <ul>
+      
+    <li><strong>ID: </strong>{{attributes.id}}</li>
+    </ul>
+  <p>
+      Jäsenet
+      <ul>
+    {% for User in users %}
+    
+    <li>{{User.name}}</li>
+    
+    {% endfor %}
+      </ul>
+  </p>
+  
+{% endblock %}
