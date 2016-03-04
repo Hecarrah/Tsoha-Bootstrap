@@ -38,11 +38,19 @@ class UserController extends BaseController{
     public static function store(){
         self::check_logged_in();
         $params = $_POST;
+         if(isset($_POST['is_admin'])){
         $attributes = array(
             'name' => $params['name'],
             'password' => $params['password'],
-            'is_admin' => $params['is_admin'],
+            'is_admin' => 1
         );
+        }else{
+        $attributes = array(
+            'name' => $params['name'],
+            'password' => $params['password'],
+            'is_admin' => 0
+        );
+        }
         $user = new User($attributes);
         $errors = $user->errors();
        Kint::dump($params);
@@ -65,12 +73,21 @@ class UserController extends BaseController{
         self::check_logged_in();
         $params = $_POST;
         
+        if(isset($_POST['is_admin'])){
         $attributes = array(
             'id' => $id,
             'name' => $params['name'],
             'password' => $params['password'],
-            'is_admin' => $params['is_admin'],
+            'is_admin' => 1
         );
+        }else{
+        $attributes = array(
+            'id' => $id,
+            'name' => $params['name'],
+            'password' => $params['password'],
+            'is_admin' => 0
+        );
+        }
         Kint::dump($params);
         $user = new User($attributes);
         $errors = $user -> errors();

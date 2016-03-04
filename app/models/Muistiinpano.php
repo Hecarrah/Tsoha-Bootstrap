@@ -1,6 +1,6 @@
 <?php
  class Muistiinpano extends BaseModel{
-     public $id, $kayt_id, $name, $description, $added, $priority, $groupname, $username;
+     public $id, $kayt_id, $name, $description, $added, $priority, $groupname, $username, $ryh_id;
      
      public function __construct($attributes) {
          parent::__construct($attributes);
@@ -93,6 +93,14 @@
 //  Kint::dump($row);
         $this->id = $row['id'];
     }
+    public function groupsave(){
+        $query = DB::connection()->prepare('INSERT INTO RyhmaMuistiinpano (name, description, priority, added, kayt_id, ryh_id) VALUES (:name, :description, :priority, :added, :kayt_id, :ryh_id) RETURNING id');
+        $query->execute(array('name' => $this->name, 'description' => $this->description, 'priority' => $this->priority, 'added' => date("Y-m-d"), 'kayt_id' => $_SESSION['user'], 'ryh_id' => $this->ryh_id));
+        $row = $query->fetch();
+//          Kint::trace();
+//  Kint::dump($row);
+        $this->id = $row['id'];
+    }
     public function update(){
         $done;
         if(isset($_POST['done'])){
@@ -105,18 +113,27 @@
                                         . 'priority =\'' .$this->priority.'\', '
                                         . 'name =\''. $this->name. '\' WHERE id =' .$this->id);
         $query->execute();
-        //$row = $query->fetch();
-//          Kint::trace();
-        //Kint::dump($row);
-        //$this->id = $row['id'];
+    }
+    public function groupupdate(){
+        $done;
+        if(isset($_POST['done'])){
+            $done = $_POST['done'];
+        }else{
+            $done=0;
+        }
+        $query = DB::connection()->prepare('UPDATE RyhmaMuistiinpano SET '
+                                        . 'description = \''.$this->description.'\', '
+                                        . 'priority =\'' .$this->priority.'\', '
+                                        . 'name =\''. $this->name. '\' WHERE id =' .$this->id);
+        $query->execute();
     }
     public function destroy(){
         $query = DB::connection()->prepare('DELETE FROM Muistiinpano WHERE id =' . $this->id . ' RETURNING id');
         $query->execute();
-        //$row = $query->fetch();
-//          Kint::trace();
-//  Kint::dump($row);
-        //$this->id = $row['id'];
+    }
+    public function groupdestroy(){
+        $query = DB::connection()->prepare('DELETE FROM RyhmaMuistiinpano WHERE id =' . $this->id . ' RETURNING id');
+        $query->execute();
     }
     
     public function validate_name(){

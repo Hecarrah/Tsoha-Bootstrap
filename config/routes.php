@@ -25,6 +25,9 @@ require 'app/controllers/userController.php';
     memoController::destroy($id);
     
   });
+  $routes->get('/groupmemo', function(){
+    memoController::index();
+  });
   $routes->post('/groupmemo', function(){
     memoController::groupstore();
   });

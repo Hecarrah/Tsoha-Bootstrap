@@ -15,6 +15,14 @@
       <label class="control-label">Nimi</label>
       <input type="text" name="name" class="form-control" value="{{attributes.name}}">
     </div>
+      <div class="form-group">
+  <label>Jäsenet</label>
+  <select class="form-control" name="members[]" multiple="">
+    {% for member in members %}
+      <option value="{{member.id}}">{{member.name}}</option>
+    {% endfor %}
+  </select>
+    </div>
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Lisää</button>
     </div>

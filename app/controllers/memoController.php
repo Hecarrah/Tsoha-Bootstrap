@@ -22,7 +22,8 @@ class memoController extends BaseController{
     } 
     public static function groupcreate(){
         self::check_logged_in();
-        View::make('groupmemo/new.html');
+        $group = Group::ryhmat($_SESSION['user']);
+        View::make('groupmemo/new.html', array('group' => $group));
     } 
     public static function store(){
         self::check_logged_in();
@@ -48,6 +49,7 @@ class memoController extends BaseController{
         self::check_logged_in();
         $params = $_POST;
         $attributes = array(
+            'ryh_id' => $params['group'],
             'name' => $params['name'],
             'description' => $params['description'],
             'priority' => $params['priority'],
@@ -57,11 +59,14 @@ class memoController extends BaseController{
         $errors = $memo->errors();
 //       Kint::dump($params);
         if(count($errors) == 0){
-            $memo->save();
+            $memo->groupsave();
             Redirect::to('/groupmemo/'. $memo->id, array('message'=>'Muistiinpano lisätty.'));
         }
         else{
-            View::make('groupmemo/new.html', array('errors' => $errors, 'attributes' => $attributes));
+            $group = Group::ryhmat($_SESSION['user']);
+            Kint::dump($group);
+            View::make('groupmemo/new.html', array('errors' => $errors, 'attributes' => $attributes, 'group' => $group));
+            
         }
     }
     
@@ -109,8 +114,6 @@ class memoController extends BaseController{
             'name' => $params['name'],
             'description' => $params['description'],
             'priority' => $params['priority'],
-            //'kayt_id' => $params['kayt_id'],
-           // 'added' => $params['added'],
             'done' => isset($_POST['done'])
         );
         Kint::dump($params);
@@ -120,7 +123,7 @@ class memoController extends BaseController{
         if(count($errors) > 0){
             View::make('groupmemo/edit.html', array('errors' => $errors, 'attributes' => $attributes));
         }else{
-            $memo->update();
+            $memo->groupupdate();
             Redirect::to('/groupmemo/' . $memo->id, array('message' => 'Muistiinpanoa muokattu onnistuneesti'));
         }
     }
@@ -133,7 +136,7 @@ class memoController extends BaseController{
     public static function groupdestroy($id){
         self::check_logged_in();
         $memo = new Muistiinpano(array('id' => $id));
-        $memo->destroy();
+        $memo->groupdestroy();
         Redirect::to('/groupmemo', array('message' => 'Muistiinpano poistettu'));
     }
 }

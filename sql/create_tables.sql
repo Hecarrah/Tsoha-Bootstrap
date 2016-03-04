@@ -7,8 +7,7 @@ CREATE TABLE Kayttaja(
 
 CREATE TABLE Ryhma(
     id SERIAL PRIMARY KEY,
-    name varchar(50) NOT NULL,
-    kayt_id SERIAL REFERENCES Kayttaja(id)
+    name varchar(50) NOT NULL
 );
 
 CREATE TABLE Kayt_ryhma(

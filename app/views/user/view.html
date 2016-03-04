@@ -15,9 +15,9 @@
     <li><strong>Käyttäjänimi: </strong>{{attributes.name}}</li>
     <li><strong>Salasana: </strong> {{attributes.password}}</li>
           {% if attributes.isAdmin(attributes.id) %}
-          <li><strong>Admin: </strong> {{attributes.is_admin}}</li>
+          <li><strong>Rooli: </strong>Admin</li>
           {% else %}
-          <li><strong>Admin: </strong>0</li>
+          <li><strong>Rooli: </strong>Käyttäjä</li>
           {% endif %}
     </ul>
   

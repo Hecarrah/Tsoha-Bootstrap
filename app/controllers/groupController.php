@@ -15,7 +15,8 @@ class groupController extends BaseController{
     }
         public static function create(){
         self::check_logged_in();
-        View::make('group/new.html');
+        $members = User::all();
+        View::make('group/new.html', array('members' => $members));
     } 
     public static function store(){
         self::check_logged_in();
@@ -38,7 +39,9 @@ class groupController extends BaseController{
     public static function edit($id){
         self::check_logged_in();
         $group = Group::find($id);
-        View::make('group/edit.html', array('attributes' => $group));
+        $members = User::all();
+        $users = User::jasenet($id);
+        View::make('group/edit.html', array('attributes' => $group, 'members' => $members, 'users' => $users));
     }
     
     public static function update($id){
@@ -61,7 +64,7 @@ class groupController extends BaseController{
     }
     public static function destroy($id){
         self::check_logged_in();
-        $group = new User(array('id' => $id));
+        $group = new Group(array('id' => $id));
         $group->destroy();
         Redirect::to('/group', array('message' => 'Ryhmä poistettu'));
     }

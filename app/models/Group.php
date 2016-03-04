@@ -2,20 +2,21 @@
 
 class Group extends BaseModel {
 
-    public $id, $name;
+    public $id, $name, $members;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
         $this->validators = array('validate_name');
     }
                   public static function ryhmat($id) {
-        $query = DB::connection()->prepare('SELECT ryhma.name FROM Ryhma, Kayttaja, Kayt_ryhma WHERE kayttaja.id = :id AND ryhma.id = kayt_ryhma.ryhma_id AND kayttaja.id = kayt_ryhma.kayt_id;');
+        $query = DB::connection()->prepare('SELECT ryhma.name, ryhma.id FROM Ryhma, Kayttaja, Kayt_ryhma WHERE kayttaja.id = :id AND ryhma.id = kayt_ryhma.ryhma_id AND kayttaja.id = kayt_ryhma.kayt_id;');
         $query->execute(array('id' => $id));
         $rows = $query->fetchAll();
         $ryhmat = array();
         foreach ($rows as $row) {
           $ryhmat[] = new Ryhma(array(
-            'name' => $row['name']
+            'name' => $row['name'],
+            'id' => $row['id']
             ));
         }
         return $ryhmat;
@@ -50,6 +51,12 @@ class Group extends BaseModel {
         $query->execute(array('name' => $this->name));
         $row = $query->fetch();
         $this->id = $row['id'];
+        $members = $_POST['members'];
+        foreach ($members as $member) {
+            $query = DB::connection()->prepare('INSERT INTO kayt_ryhma (kayt_id, ryhma_id) VALUES ('.$member.','.$this->id.')');
+            $query->execute();
+        }
+        
     }
     public function update(){
         $done;
@@ -62,9 +69,17 @@ class Group extends BaseModel {
                                         . 'Name = \''.$this->name .'\' '.
                                          ' WHERE id =' .$this->id);
         $query->execute();
+        $query = DB::connection()->prepare('DELETE FROM kayt_ryhma WHERE ryhma_id = '.$this->id);
+        $query->execute();
+        
+        $members = $_POST['members'];
+        foreach ($members as $member) {
+            $query = DB::connection()->prepare('INSERT INTO kayt_ryhma (kayt_id, ryhma_id) VALUES ('.$member.','.$this->id.')');
+            $query->execute();
+        }
     }
     public function destroy(){
-        $query = DB::connection()->prepare('DELETE FROM Ryhma id =' . $this->id . ' RETURNING id');
+        $query = DB::connection()->prepare('DELETE FROM Ryhma WHERE id =' . $this->id . ' RETURNING id');
         $query->execute();
     }
         public function validate_name(){

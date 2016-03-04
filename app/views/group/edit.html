@@ -16,6 +16,20 @@
       <label class="control-label">Nimi</label>
       <input type="text" name="name" class="form-control" value="{{attributes.name}}">
     </div>
+                  Nykyiset jäsenet
+      <ul>
+    {% for User in users %} 
+    <li>{{User.name}}</li>
+    {% endfor %}
+      </ul> 
+        <label>Valitse uudet jäsenet</label>
+        <div class="form-group">
+  <select class="form-control" name="members[]" multiple="">
+    {% for member in members %}
+      <option value="{{member.id}}">{{member.name}}</option>
+    {% endfor %}
+  </select>
+        </div>
     <div class="form-group">
       <form method="post" action="{{base_path}}/group/{{Group.id}}/edit" style="display: inline-block;">
   <button type="submit" class="btn btn-danger">Muokkaa</button>
