@@ -15,19 +15,19 @@
 
     <div class="form-group">
         <label class="control-label">Käyttäjätunnus</label>
-        <input type="text" name="name" class="form-control" value="{{attributes.name}}">
+        <input type="text" name="name" maxlength="50" class="form-control" value="{{attributes.name}}">
     </div>
 
     <div class="form-group">
         <label class="control-label">Salasana</label>
-        <input type="text" name="password" class="form-control" value="{{attributes.password}}">
+        <input type="text" name="password" maxlength="50" class="form-control" value="{{attributes.password}}">
     </div>
 
     <div class="form-group">
         {% if attributes.isAdmin(attributes.id) %}
-            <input type="checkbox" name="is_admin" value="1" checked>Admin
+        <input type="checkbox" name="is_admin" value="1" checked>Admin
         {% else %}
-            <input type="checkbox" name="is_admin" value="0" >Admin
+        <input type="checkbox" name="is_admin" value="0" >Admin
         {% endif %}
     </div>
     <div class="form-group">

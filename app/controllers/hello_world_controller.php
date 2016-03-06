@@ -7,7 +7,7 @@
     }
 
       public static function sandbox(){
-          $test = new Muistiinpano(array(
+          $test = new Memo(array(
               'name' => 'k',
               'description' => 'lel',
               'priority' => 'tärkeä'

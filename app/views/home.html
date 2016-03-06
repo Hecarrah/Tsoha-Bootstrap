@@ -1,8 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-{{message}}
-  <div class="page-header">
+{% if message %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+<div class="page-header">
     <h1>Tervetuloa</h1>
-  </div>
+</div>
+<p>
+    Kirjoita tähän jotain hauskaa.
+</p>
 {% endblock %}

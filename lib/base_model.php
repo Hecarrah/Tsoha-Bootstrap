@@ -26,34 +26,40 @@
       return $errors;
     }
     
-    public function validate_String_not_null($string){
+    public function validate_String_not_null($string, $param){
         $errors = array();
         if($string == '' || $string == null){
-            $errors[] = 'Minkään arvon ei tule olla null';
+            $errors[] = $param.' ei tule olla null';
         }
         return $errors;
     }
     
-    public function validate_String_lenght($string){
+    public function validate_String_lenght($string, $param){
         $errors = array();
         if(strlen($string) < 3){
-            $errors[] = 'Arvon ei tule olla kolmea(3) merkkiä lyhyempi';
+            $errors[] = $param.' ei tule olla kolmea(3) merkkiä lyhyempi';
         }
         return $errors;
     }
-    public function validate_not_whitespace($string){
+    public function validate_not_whitespace($string, $param){
         $errors = array();
         if(ctype_space($string)){
-            $errors[] = 'Arvon ei tule olla pelkkää whitespacea';
+            $errors[] = $param.' ei tule olla pelkkää whitespacea';
         }
         return $errors;
     }
-    public function validate_boolean($string){
+    public function validate_boolean($string, $param){
         $errors = array();
         if(is_bool($string)){
-            $errors[] = 'Arvon tulee olla boolean';
+            $errors[] = $param.' tulee olla boolean';
         }
         return $errors;
     }
-
+    public function validate_integer($string, $param){
+        $errors = array();
+        if(is_int($string)){
+            $errors[] = $param.' tulee olla numero';
+        }
+        return $errors;
+    }
 }

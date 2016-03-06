@@ -1,33 +1,35 @@
 {% extends "base.html" %}
 {% import "macros/forms.html" as forms %}
 {% block content %}
+{% if message %}
 <div class="alert alert-success">
-  {{message}}
+    {{message}}
 </div>
-  <h1>{{user.name}}</h1>
-  
-  <p>
+{% endif %}
+<h1>{{attributes.name}}</h1>
+
+<p>
     {{forms.destroy_button("#{base_path}/user/#{user.id}/destroy")}}
-  </p>
-  <ul>
-      
+</p>
+<ul>
+
     <li><strong>Käyttäjä ID: </strong>{{attributes.id}}</li>
     <li><strong>Käyttäjänimi: </strong>{{attributes.name}}</li>
     <li><strong>Salasana: </strong> {{attributes.password}}</li>
-          {% if attributes.isAdmin(attributes.id) %}
-          <li><strong>Rooli: </strong>Admin</li>
-          {% else %}
-          <li><strong>Rooli: </strong>Käyttäjä</li>
-          {% endif %}
-    </ul>
-  
-      Ryhmät
-      <ul>
+    {% if attributes.isAdmin(attributes.id) %}
+    <li><strong>Rooli: </strong>Admin</li>
+    {% else %}
+    <li><strong>Rooli: </strong>Käyttäjä</li>
+    {% endif %}
+</ul>
+
+Ryhmät
+<ul>
     {% for Ryhma in ryhmat %}
-    
+
     <li>{{Ryhma.name}}</li>
-    
+
     {% endfor %}
-      </ul>
-  
+</ul>
+
 {% endblock %}

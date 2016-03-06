@@ -22,7 +22,7 @@ CREATE TABLE Muistiinpano(
     name varchar(50) NOT NULL,
     description varchar(500),
     added DATE,
-    priority varchar(50) default 'Normaali'
+    priority Integer default 0
 );
 CREATE TABLE RyhmaMuistiinpano(
     id SERIAL PRIMARY KEY,
@@ -31,5 +31,5 @@ CREATE TABLE RyhmaMuistiinpano(
     name varchar(50) NOT NULL,
     description varchar(500),
     added DATE,
-    priority varchar(50) default 'Normaali'
+    priority Integer default 0
 );

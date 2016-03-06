@@ -1,22 +1,24 @@
 {% extends "base.html" %}
 {% import "macros/forms.html" as forms %}
 {% block content %}
+{% if message %}
 <div class="alert alert-success">
-  {{message}}
+    {{message}}
 </div>
-  <h1>{{memo.name}}</h1>
-  
-  <p>
+{% endif %}
+<h1>{{memo.name}}</h1>
+
+<p>
     {{forms.destroy_button("#{base_path}/memo/#{memo.id}/destroy")}}
-  </p>
-  <ul>
-      
+</p>
+<ul>
+
     <li><strong>Lisäyspäivä</strong> {{memo.added}}</li>
     <li><strong>Lisääjä</strong> {{memo.username}}</li>
     <li><strong>Tärkeys</strong> {{memo.priority}}</li>
-    </ul>
-  <p>
+</ul>
+<p>
     {{memo.description}}
-  </p>
-  
+</p>
+
 {% endblock %}

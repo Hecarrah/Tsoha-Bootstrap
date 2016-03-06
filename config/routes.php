@@ -29,22 +29,22 @@ require 'app/controllers/userController.php';
     memoController::index();
   });
   $routes->post('/groupmemo', function(){
-    memoController::groupstore();
+    groupmemoController::store();
   });
   $routes->get('/groupmemo/new', function(){
-    memoController::groupcreate();
+    groupmemoController::create();
   });    
   $routes->get('/groupmemo/:id', function($id){
-    memoController::groupshow($id);
+    groupmemoController::show($id);
   });
   $routes->get('/groupmemo/:id/edit', function($id){
-    memoController::groupedit($id);
+    groupmemoController::edit($id);
   });
   $routes->post('/groupmemo/:id/edit', function($id){
-    memoController::groupupdate($id);
+    groupmemoController::update($id);
   });
   $routes->post('/groupmemo/:id/destroy', function($id){
-    memoController::groupdestroy($id);
+    groupmemoController::destroy($id);
   });
   
   $routes->get('/login', function(){

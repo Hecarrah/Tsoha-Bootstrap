@@ -6,7 +6,8 @@ Yleisiä linkkejä:
 * [Linkki dokumentaatiooni](https://github.com/Hecarrah/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 
 ## Työn aihe
-http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Muistilista.html
+Muistilista, jossa käyttäjät voivat kuulua erinäisiin ryhmiin ja käyttää niin käyttäjäkohtaisia että ryhmäkohtaisia muistiinpanoja.
+Aihe pohjautuu tähän: http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Muistilista.html
 
 ## Sivujen suunnitelmia
 * [Linkki login sivulle](http://porttpet.users.cs.helsinki.fi/TietokantaHarjoitus/login)
