@@ -7,9 +7,12 @@
 </div>
 {% endif %}
 <div class="page-header">
-    <h1>Tervetuloa</h1>
+    <h1>Tervetuloa Muistiinpano sovellukseen</h1>
 </div>
 <p>
-    Kirjoita tähän jotain hauskaa.
+    {% if user_logged_in %}
+    {% else %}
+    Aloittaaksesi sovelluksen käytön, ole hyvä ja kirjaudu ensin sisään.
+    {% endif %}
 </p>
 {% endblock %}
