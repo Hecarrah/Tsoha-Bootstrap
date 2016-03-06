@@ -55,10 +55,12 @@ class Group extends BaseModel {
         $query->execute(array('name' => $this->name));
         $row = $query->fetch();
         $this->id = $row['id'];
+        if(isset($_POST['members'])){
         $members = $_POST['members'];
         foreach ($members as $member) {
             $query = DB::connection()->prepare('INSERT INTO kayt_ryhma (kayt_id, ryhma_id) VALUES (' . $member . ',' . $this->id . ')');
             $query->execute();
+        }
         }
     }
 
@@ -75,16 +77,21 @@ class Group extends BaseModel {
         $query->execute();
         $query = DB::connection()->prepare('DELETE FROM kayt_ryhma WHERE ryhma_id = ' . $this->id);
         $query->execute();
-
+        if(isset($_POST['members'])){
         $members = $_POST['members'];
         foreach ($members as $member) {
             $query = DB::connection()->prepare('INSERT INTO kayt_ryhma (kayt_id, ryhma_id) VALUES (' . $member . ',' . $this->id . ')');
             $query->execute();
         }
+        }
     }
 
     public function destroy() {
-        $query = DB::connection()->prepare('DELETE FROM Ryhma WHERE id =' . $this->id . ' RETURNING id');
+        $query = DB::connection()->prepare('DELETE FROM kayt_ryhma WHERE ryhma_id =' . $this->id);
+        $query->execute();
+        $query = DB::connection()->prepare('DELETE FROM ryhmamuistiinpano WHERE ryh_id =' . $this->id);
+        $query->execute();
+        $query = DB::connection()->prepare('DELETE FROM Ryhma WHERE ryhma.id =' . $this->id . ' RETURNING id');
         $query->execute();
     }
 

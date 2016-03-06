@@ -106,6 +106,10 @@ class User extends BaseModel {
     }
 
     public function destroy() {
+        $query = DB::connection()->prepare('DELETE FROM kayt_ryhma WHERE kayt_id =' . $this->id);
+        $query->execute();
+        $query = DB::connection()->prepare('DELETE FROM Muistiinpano WHERE kayt_id =' . $this->id);
+        $query->execute();
         $query = DB::connection()->prepare('DELETE FROM Kayttaja WHERE id =' . $this->id . ' RETURNING id');
         $query->execute();
         //$row = $query->fetch();
